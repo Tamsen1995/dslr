@@ -3,6 +3,6 @@ setup:
 	. venv/bin/activate; pip install -r requirements.txt
 
 # run:
-# 	. venv/bin/activate; python your_script.py
+# 	. venv/bin/activate
 
-# all: setup run
+all: setup run

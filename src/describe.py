@@ -1,0 +1,1 @@
+# Manual Calculations: Implement manual calculations for mean, standard deviation, min, and max without library functions.
