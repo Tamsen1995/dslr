@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import sys
 import numpy as np
@@ -30,7 +31,12 @@ def calculate_percentile(numbers, percentile):
 
 
 def describe_dataset(filepath):
-    df = pd.read_csv(filepath)
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"File not found: {filepath}")
+    try:
+        df = pd.read_csv(filepath)
+    except pd.errors.EmptyDataError:
+        raise ValueError(f"No file found at: {filepath}")
     descriptions = {}
     for column in df:
         if df[column].dtype in [np.int64, np.float64]:  # Only calculate for numerical columns
@@ -49,6 +55,8 @@ def describe_dataset(filepath):
     return descriptions
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        raise ValueError("Please provide a filepath as an argument")
     filepath = sys.argv[1]
     descriptions = describe_dataset(filepath)
     headers = [""] + list(descriptions.keys())
